@@ -17,7 +17,7 @@ const pAequorFactory = (specimenNum, dna) => {
     return {
         specimenNum,
         dna,
-        mutate: () => {
+        mutate() {
             const randIndex = Math.floor(Math.random() * this.dna.length);
             let newBase = returnRandBase();
             while (this.dna[randIndex] === newBase) {
@@ -26,7 +26,7 @@ const pAequorFactory = (specimenNum, dna) => {
             this.dna[randIndex] = newBase;
             return this.dna;
         },
-        compareDNA: (otherOrg) => {
+        compareDNA(otherOrg) {
             const similarities = this.dna.reduce((acc, curr, idx, arr) => {
                 if (arr[idx] === otherOrg.dna[idx]) {
                   return acc + 1;
@@ -38,7 +38,7 @@ const pAequorFactory = (specimenNum, dna) => {
             
             const percentOfDNAshared = (similarities / this.dna.length) * 100;
             const percentageTo2Deci = percentOfDNAshared.toFixed(2);
-            console.log(`${this.specimenNum} and ${otherOrg.specimenNum} have ${percentageTo2Deci}% DNA in common.`);
+            console.log(`Specimen ${this.specimenNum} and Specimen ${otherOrg.specimenNum} have ${percentageTo2Deci}% DNA in common.`);
         },
         willLikelySurvive() {
             const cOrG = this.dna.filter(el => el === "C" || el === "G");
@@ -47,15 +47,19 @@ const pAequorFactory = (specimenNum, dna) => {
     }
 };
 
-const survivingSpecimen = [];
-let idCounter = 1;
+let value1 = pAequorFactory(1, mockUpStrand());
+let value2 = pAequorFactory(2, mockUpStrand());
+value1.compareDNA(value2);
 
-while (survivingSpecimen.length < 30) {
-  let newOrg = pAequorFactory(idCounter, mockUpStrand());
-  if (newOrg.willLikelySurvive()) {
-    survivingSpecimen.push(newOrg);
-  }
-  idCounter++;
-}
+// const survivingSpecimen = [];
+// let idCounter = 1;
 
-console.log(survivingSpecimen);
+// while (survivingSpecimen.length < 30) {
+//   let newOrg = pAequorFactory(idCounter, mockUpStrand());
+//   if (newOrg.willLikelySurvive()) {
+//     survivingSpecimen.push(newOrg);
+//   }
+//   idCounter++;
+// }
+
+// console.log(survivingSpecimen);
