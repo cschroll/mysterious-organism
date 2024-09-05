@@ -17,7 +17,7 @@ const pAequorFactory = (specimenNum, dna) => {
     return {
         specimenNum,
         dna,
-        mutate() {
+        mutate: () => {
             const randIndex = Math.floor(Math.random() * this.dna.length);
             let newBase = returnRandBase();
             while (this.dna[randIndex] === newBase) {
@@ -26,7 +26,7 @@ const pAequorFactory = (specimenNum, dna) => {
             this.dna[randIndex] = newBase;
             return this.dna;
         },
-        compareDNA(otherOrg) {
+        compareDNA: (otherOrg) => {
             const similarities = this.dna.reduce((acc, curr, idx, arr) => {
                 if (arr[idx] === otherOrg.dna[idx]) {
                   return acc + 1;
